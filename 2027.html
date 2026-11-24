@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>2027个人开运图鉴</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 html2canvas 用于一键生成高清长海报 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- 引入优雅中英文字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #071318;
+      --bg-emerald: #0c2226;
+      --gold-sun: #f3c873;
+      --gold-pale: #fbe6b8;
+      --mint-aurora: #6ee7b7;
+      --mint-soft: #a7f3d0;
+      --card-bg: rgba(11, 27, 32, 0.88);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: var(--bg-deep);
+      background-image:
+        radial-gradient(circle at 50% -10%, rgba(110, 231, 183, 0.16) 0%, transparent 55%),
+        radial-gradient(circle at 85% 88%, rgba(243, 200, 115, 0.15) 0%, transparent 50%),
+        linear-gradient(165deg, #071318 0%, #0d2428 55%, #08161a 100%);
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-serif-sc {
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    .font-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* 背景极光微尘画布 */
+    #aurora-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 旭日鎏金与极光青提卡片 */
+    .aurora-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(243, 200, 115, 0.25);
+      box-shadow:
+        0 24px 60px rgba(3, 10, 14, 0.72),
+        inset 0 1px 0 rgba(167, 243, 208, 0.15);
+      backdrop-filter: blur(16px);
+    }
+
+    /* 鎏金青提渐变标题 */
+    .sun-mint-text {
+      background: linear-gradient(135deg, #fff5dc 0%, #f3c873 48%, #6ee7b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 旭日鎏金主按钮 */
+    .btn-sunrise {
+      background: linear-gradient(135deg, #f3c873 0%, #d49e42 52%, #34d399 130%);
+      color: #081518;
+      box-shadow: 0 10px 28px rgba(243, 200, 115, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-sunrise:hover {
+      filter: brightness(1.06);
+      box-shadow: 0 12px 34px rgba(110, 231, 183, 0.28);
+    }
+
+    .btn-sunrise:active {
+      transform: scale(0.98);
+    }
+
+    /* 选项卡片 */
+    .choice-item {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(110, 231, 183, 0.18);
+      transition: all 0.22s ease;
+    }
+
+    .choice-item:hover {
+      background: rgba(110, 231, 183, 0.08);
+      border-color: rgba(243, 200, 115, 0.48);
+    }
+
+    .choice-item.selected {
+      background: linear-gradient(90deg, rgba(243, 200, 115, 0.2) 0%, rgba(110, 231, 183, 0.14) 100%);
+      border-color: #f3c873;
+      box-shadow: 0 0 0 1px rgba(243, 200, 115, 0.35);
+    }
+
+    @keyframes gentleRise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-rise {
+      animation: gentleRise 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes slowPulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+
+    .animate-pulse-soft {
+      animation: slowPulse 4s ease-in-out infinite;
+    }
+
+    .progress-smooth {
+      transition: width 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center px-4 py-8 sm:py-10 relative">
+
+  <!-- 背景极光微尘画布 -->
+  <canvas id="aurora-canvas"></canvas>
+
+  <!-- 主体自适应容器 -->
+  <main class="w-full max-w-md sm:max-w-xl relative z-10">
+
+    <!-- ==================== 1. 封面页（无剧透、极简治愈） ==================== -->
+    <section id="screen-cover" class="aurora-card rounded-3xl p-8 sm:p-11 text-center animate-rise">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-300/25 mb-7">
+        <span class="w-2 h-2 rounded-full bg-[#6ee7b7]"></span>
+        <span class="text-xs tracking-[0.2em] text-[#a7f3d0] font-medium">ANNUAL LUCKY ATLAS · 2027</span>
+      </div>
+
+      <!-- 旭日与青提星芒图腾 -->
+      <div class="relative w-24 h-24 mx-auto mb-7 flex items-center justify-center animate-pulse-soft">
+        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-400/15 to-amber-300/20 blur-md"></div>
+        <div class="relative w-20 h-20 rounded-full bg-[#0a1c20] border border-[#f3c873]/40 flex items-center justify-center shadow-[0_0_30px_rgba(110,231,183,0.18)]">
+          <svg class="w-10 h-10 text-[#f3c873]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="4" stroke="#6ee7b7" />
+            <path stroke-linecap="round" d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- 主标题与副标题 -->
+      <h1 class="font-serif-sc text-3xl sm:text-4xl font-black tracking-wide sun-mint-text mb-3">
+        2027个人开运图鉴
+      </h1>
+      <p class="font-serif-sc text-sm sm:text-base text-[#fbe6b8]/95 tracking-wider mb-6">
+        在时间的褶皱里，预见你明年的高光时刻
+      </p>
+
+      <div class="w-12 h-px bg-gradient-to-r from-transparent via-[#f3c873]/50 to-transparent mx-auto mb-6"></div>
+
+      <p class="text-xs sm:text-sm text-slate-200/80 leading-7 max-w-sm mx-auto mb-9">
+        每一阵吹向未来的风，都藏在你当下的直觉与选择里。<br/>
+        请放慢呼吸，跟随内心的第一反应，<br/>
+        翻开属于你的 2027 上上签启示录。
+      </p>
+
+      <button onclick="beginJourney()" class="btn-sunrise w-full py-4 px-6 rounded-2xl font-serif-sc font-bold text-base tracking-widest cursor-pointer">
+        开启我的 2027 开运图鉴
+      </button>
+
+      <p class="mt-6 text-xs text-emerald-100/45 tracking-wider">
+        @静观
+      </p>
+    </section>
+
+    <!-- ==================== 2. 答题页（仅展示进度条，不剧透总题数） ==================== -->
+    <section id="screen-questions" class="hidden aurora-card rounded-3xl p-6 sm:p-9">
+      <div class="flex items-center justify-between text-xs mb-3">
+        <span id="stage-label" class="px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-300/25 text-[#a7f3d0] tracking-wider">
+          潜意识投射
+        </span>
+        <span class="text-slate-400 text-[11px] tracking-wider">跟随第一直觉选择</span>
+      </div>
+
+      <!-- 极光渐进进度条 -->
+      <div class="w-full h-1.5 bg-black/45 rounded-full overflow-hidden mb-7">
+        <div id="journey-bar" class="h-full bg-gradient-to-r from-[#6ee7b7] via-[#f3c873] to-[#fbe6b8] transition-all duration-300" style="width: 11%"></div>
+      </div>
+
+      <div id="card-motion" class="animate-rise">
+        <h2 id="prompt-title" class="font-serif-sc text-lg sm:text-xl font-bold text-slate-50 leading-relaxed mb-6">
+          正在展开画面...
+        </h2>
+        <div id="prompt-options" class="space-y-3"></div>
+      </div>
+
+      <div class="mt-7 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+        <button id="btn-prev-step" onclick="goBackStep()" class="px-3 py-1.5 rounded-xl hover:bg-white/5 hover:text-[#fbe6b8] transition opacity-40 pointer-events-none cursor-pointer">
+          ← 返回上一幕
+        </button>
+        <span class="text-[11px] text-emerald-100/40">@静观</span>
+      </div>
+    </section>
+
+    <!-- ==================== 3. 启示生成过渡页 ==================== -->
+    <section id="screen-loading" class="hidden aurora-card rounded-3xl p-10 sm:p-12 text-center">
+      <div class="relative w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+        <div class="w-16 h-16 rounded-full border-2 border-emerald-300/20 border-t-[#f3c873] animate-spin"></div>
+        <span class="absolute text-lg text-[#6ee7b7]">✦</span>
+      </div>
+      <h3 class="font-serif-sc text-lg sm:text-xl font-bold sun-mint-text mb-2">正在绘制你的 2027 开运图鉴...</h3>
+      <p id="loading-status" class="text-xs sm:text-sm text-slate-300/75">正在感应你的年度生命节奏与高光坐标...</p>
+    </section>
+
+    <!-- ==================== 4. 结果与长海报页（全员上上签 · 深度哲理长信版） ==================== -->
+    <section id="screen-result" class="hidden animate-rise">
+      <!-- 可完整渲染为高清长海报的卡片区域 -->
+      <div id="long-poster-capture" class="aurora-card rounded-3xl p-6 sm:p-9">
+        <!-- 顶部签文编号 -->
+        <div class="flex items-center justify-between text-xs text-[#fbe6b8]/85 border-b border-white/10 pb-3.5 mb-6">
+          <span class="font-num tracking-widest">2027 BLESSING · NO.<span id="oracle-id">2027</span></span>
+          <span class="px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-[#f3c873]/40 text-[#f3c873] font-serif-sc font-bold text-[11px]">
+            ✦ 2027 上上签 ✦
+          </span>
+        </div>
+
+        <!-- 核心签文抬头 -->
+        <div class="text-center mb-7">
+          <div id="res-tagline" class="inline-block px-3.5 py-1 rounded-full bg-emerald-400/10 border border-emerald-300/30 text-[#a7f3d0] text-xs font-medium mb-3">
+            年度能量底色
+          </div>
+          <h2 id="res-title" class="font-serif-sc text-2xl sm:text-3xl font-black sun-mint-text leading-snug mb-3">
+            【锦鲤附体·顺势而为的造浪者】
+          </h2>
+          <p id="res-motto" class="font-serif-sc italic text-xs sm:text-sm text-[#fbe6b8]/90 px-2">
+            “风起于青萍之末，而你恰好站在了迎风舒展的位置。”
+          </p>
+        </div>
+
+        <!-- 三维好运气场进度条 -->
+        <div class="rounded-2xl bg-[#061014]/70 border border-white/10 p-4 sm:p-5 mb-6 space-y-3.5">
+          <div>
+            <div class="flex justify-between text-xs sm:text-sm mb-1.5">
+              <span class="text-slate-200">顺风机遇磁场</span>
+              <span id="aura-val-1" class="font-num font-bold text-[#f3c873]">92%</span>
+            </div>
+            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+              <div id="aura-bar-1" class="progress-smooth h-full bg-gradient-to-r from-[#f3c873] to-[#fbe6b8] rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs sm:text-sm mb-1.5">
+              <span class="text-slate-200">内在丰盈与定力</span>
+              <span id="aura-val-2" class="font-num font-bold text-[#6ee7b7]">90%</span>
+            </div>
+            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+              <div id="aura-bar-2" class="progress-smooth h-full bg-gradient-to-r from-emerald-500 to-[#6ee7b7] rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs sm:text-sm mb-1.5">
+              <span class="text-slate-200">心想事成显化力</span>
+              <span id="aura-val-3" class="font-num font-bold text-[#fbe6b8]">94%</span>
+            </div>
+            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+              <div id="aura-bar-3" class="progress-smooth h-full bg-gradient-to-r from-[#6ee7b7] via-[#f3c873] to-[#fbe6b8] rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 高光爆发月份 & 专属幸运色 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <div class="rounded-2xl bg-white/[0.03] border border-[#f3c873]/25 p-4">
+            <div class="text-[11px] text-slate-400 mb-1">✦ 高光爆发月份</div>
+            <div id="res-peak-month" class="font-serif-sc font-bold text-sm sm:text-base text-[#f3c873]"></div>
+          </div>
+          <div class="rounded-2xl bg-white/[0.03] border border-emerald-300/25 p-4">
+            <div class="text-[11px] text-slate-400 mb-1">✦ 2027 专属幸运色</div>
+            <div class="flex items-center gap-2.5">
+              <span id="res-color-dot" class="w-4 h-4 rounded-full border border-white/40 shrink-0 shadow-sm"></span>
+              <span id="res-color-label" class="font-serif-sc font-bold text-sm sm:text-base text-[#a7f3d0]"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 深度哲理长信解析（三个层次，内容充实饱满） -->
+        <div class="space-y-4">
+          <!-- 1. 年度气场侧写 -->
+          <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4 sm:p-5">
+            <h3 class="font-serif-sc font-bold text-[#f3c873] text-sm sm:text-base mb-2.5 flex items-center gap-2">
+              <span>Ⅰ.</span> <span>年度气场侧写</span>
+            </h3>
+            <p id="res-portrait" class="text-xs sm:text-sm text-slate-200/90 leading-7 whitespace-pre-line"></p>
+          </div>
+
+          <!-- 2. 深层生命哲学寄语 -->
+          <div class="rounded-2xl bg-emerald-400/[0.06] border border-emerald-300/25 p-4 sm:p-5">
+            <h3 class="font-serif-sc font-bold text-[#6ee7b7] text-sm sm:text-base mb-2.5 flex items-center gap-2">
+              <span>Ⅱ.</span> <span>致 2027 的生命哲学寄语</span>
+            </h3>
+            <p id="res-philosophy" class="text-xs sm:text-sm text-slate-200/90 leading-7 whitespace-pre-line"></p>
+          </div>
+
+          <!-- 3. 顺势行动建议 -->
+          <div class="rounded-2xl bg-amber-400/[0.06] border border-[#f3c873]/25 p-4 sm:p-5">
+            <h3 class="font-serif-sc font-bold text-[#fbe6b8] text-sm sm:text-base mb-2.5 flex items-center gap-2">
+              <span>Ⅲ.</span> <span>2027 顺势行动锦囊</span>
+            </h3>
+            <p id="res-action" class="text-xs sm:text-sm text-slate-200/90 leading-7 whitespace-pre-line"></p>
+          </div>
+        </div>
+
+        <!-- 海报底部水印 -->
+        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-emerald-100/55">
+          <span>@静观</span>
+          <span>2027个人开运图鉴 · 上上签</span>
+        </div>
+      </div>
+
+      <!-- 海报下方操作按钮 -->
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button id="btn-make-poster" onclick="generateLongPoster()" class="btn-sunrise py-3.5 px-5 rounded-2xl font-serif-sc font-bold text-sm cursor-pointer">
+          生成专属2027开运长海报
+        </button>
+        <button onclick="restartJourney()" class="py-3.5 px-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-[#f3c873]/25 text-[#fbe6b8] font-serif-sc text-sm transition cursor-pointer">
+          重新感应一次
+        </button>
+      </div>
+      <p class="text-center text-xs text-slate-400 mt-3">
+        生成长海报后长按图片即可保存至相册，愿你 2027 所行皆坦途
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ==================== 5. 长海报预览弹窗 ==================== -->
+  <div id="poster-dialog" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-[#0b1b20] border border-[#f3c873]/30 rounded-3xl p-4 sm:p-5">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs sm:text-sm text-[#fbe6b8] font-medium">✨ 长按下方长海报保存至手机相册</span>
+        <button onclick="closePosterDialog()" class="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-white/10 cursor-pointer">
+          关闭
+        </button>
+      </div>
+      <div id="poster-image-box" class="max-h-[74vh] overflow-y-auto rounded-2xl border border-white/10"></div>
+    </div>
+  </div>
+
+  <!-- 轻提示 -->
+  <div id="toast-notice" class="hidden fixed top-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-[#0c2226] border border-[#f3c873]/40 text-xs text-[#fbe6b8] shadow-lg"></div>
+
+  <script>
+    // ==================== 9道生活直觉与心态情景题（不剧透总数） ====================
+    // 4个维度倾向映射：
+    // type 0: 【锦鲤附体·顺势而为的造浪者】
+    // type 1: 【破局重生·在旧秩序里重塑坐标】
+    // type 2: 【丰盈聚财·自带磁场的长期主义者】
+    // type 3: 【静水深流·低耗能的生命复利者】
+    const SCENARIOS = [
+      {
+        stage: "岁末独处",
+        title: "某个安静的夜晚，窗外车流渐渐稀疏，你独自泡了一杯热茶。此时脑海里最先浮现的画面是？",
+        options: [
+          { text: "想去没去过的海边或远方走走，感觉有很多新鲜的风景正等着与我相遇", type: 0, aura: [95, 86, 94] },
+          { text: "想把房间彻底断舍离一遍，清掉旧物，给即将到来的新生活腾出整洁空间", type: 1, aura: [88, 92, 90] },
+          { text: "在心里默默盘算明年的小目标，想把一项擅长的事打磨成实实在在的底气", type: 2, aura: [90, 94, 92] },
+          { text: "什么也不必刻意追赶，能拥有这样不被打扰、内心安稳的夜晚本身就很珍贵", type: 3, aura: [86, 96, 88] }
+        ]
+      },
+      {
+        stage: "未知机遇",
+        title: "突然有一扇意料之外的门向你敞开——比如一个跨界尝试、一段新旅程或久违老友的邀约，你的直觉是？",
+        options: [
+          { text: "眼睛一亮，相信直觉的指引，哪怕还没看清全貌也愿意先去碰碰运气", type: 0, aura: [96, 85, 95] },
+          { text: "敏锐察觉到这是打破现状的契机，果断告别犹豫，借势往前迈出关键一步", type: 1, aura: [91, 93, 92] },
+          { text: "先评估这件事能沉淀出什么长期价值，一旦认准就会稳稳接住并深耕下去", type: 2, aura: [89, 95, 91] },
+          { text: "不盲目跟风凑热闹，只挑选真正让内心感到舒展、同频的那一份去回应", type: 3, aura: [85, 96, 89] }
+        ]
+      },
+      {
+        stage: "意外惊喜",
+        title: "生活偶尔会派发不期而遇的小糖果。下列哪一种瞬间最容易让你觉得“被宇宙偏爱了”？",
+        options: [
+          { text: "随手参与的活动居然中了奖，或者刚出门就赶上最后一班绿灯与晚霞", type: 0, aura: [97, 86, 96] },
+          { text: "原本以为卡住的难题突然峰回路转，柳暗花明间走通了一条更好的路", type: 1, aura: [90, 94, 93] },
+          { text: "很久以前默默付出的努力，在某个不经意的时刻突然结出了丰厚的回报", type: 2, aura: [91, 95, 94] },
+          { text: "下雨天刚好带了伞，或者在疲惫时收到一句懂你沉默的温柔问候", type: 3, aura: [87, 96, 90] }
+        ]
+      },
+      {
+        stage: "取舍之道",
+        title: "当时间与精力有限，面对摆在眼前的几件选择，你最倾向于用什么标准做取舍？",
+        options: [
+          { text: "选那个让我心跳加速、充满好奇心与生命力的选项，快乐本身就是生产力", type: 0, aura: [95, 87, 94] },
+          { text: "果断砍掉消耗我的旧习惯与无效社交，哪怕有点阵痛也要守住自我边界", type: 1, aura: [89, 94, 91] },
+          { text: "把精力集中在最能产生复利的核心大事上，不被短期的小诱惑分散注意力", type: 2, aura: [92, 95, 93] },
+          { text: "遵从身体的节奏，绝不为了迎合外界的时钟而透支自己的平静与健康", type: 3, aura: [86, 97, 89] }
+        ]
+      },
+      {
+        stage: "内心声音",
+        title: "当外界的声音很嘈杂，每个人都在告诉你“应该怎么活”时，你通常如何安放自己？",
+        options: [
+          { text: "笑着听听就好，我始终相信自己的好运气，总能在人群里走出独特的花路", type: 0, aura: [96, 88, 95] },
+          { text: "哪怕曾经怀疑过自己，也能在安静复盘后重新校准坐标，亲手改写剧本", type: 1, aura: [90, 93, 92] },
+          { text: "把焦虑转化为具体的小行动，每完成一件小事，心里的笃定感就多一分", type: 2, aura: [91, 95, 92] },
+          { text: "戴上降噪耳机回到自己的精神花园，像深海一样任凭表面波澜、底色始终宁静", type: 3, aura: [87, 98, 90] }
+        ]
+      },
+      {
+        stage: "四季意象",
+        title: "如果把即将到来的 2027 年比作一幅自然风景画，第一眼最吸引你驻足的是？",
+        options: [
+          { text: "盛夏午后波光粼粼的海面，风帆正满，随手一拍都是明媚灿烂的电影感", type: 0, aura: [96, 87, 95] },
+          { text: "早春融雪后破土而出的新绿，带着冲破冻土的锐气与万物更新的生机", type: 1, aura: [91, 94, 93] },
+          { text: "深秋阳光下沉甸甸的金色麦田，每一粒果实都饱含阳光与耐心的馈赠", type: 2, aura: [92, 95, 94] },
+          { text: "清晨薄雾笼罩的静谧山谷，溪水潺潺，空气清冽，让人瞬间卸下所有防备", type: 3, aura: [86, 97, 90] }
+        ]
+      },
+      {
+        stage: "人际磁场",
+        title: "在人与人的交汇里，你越来越渴望拥有怎样的同行者？",
+        options: [
+          { text: "一起大笑、一起探索世界的玩伴，彼此点燃灵感，把平凡日子过成冒险", type: 0, aura: [95, 88, 94] },
+          { text: "能看穿我的逞强、在我转弯时递上一盏灯的清醒益友，彼此照见成长", type: 1, aura: [90, 93, 91] },
+          { text: "各自在领域里发光、又能彼此赋能的资源伙伴，共同奔赴更丰盛的高处", type: 2, aura: [93, 94, 93] },
+          { text: "即使各自忙碌、久不联系也不会生疏的知己，相处时如微风拂面般自在", type: 3, aura: [87, 96, 90] }
+        ]
+      },
+      {
+        stage: "丰盛定义",
+        title: "关于“真正的丰盛与好运”，走过这些日子后，你心里最认同的注解是？",
+        options: [
+          { text: "保持对世界的好奇与热忱，当你向生活敞开怀抱，幸运就会源源不断涌来", type: 0, aura: [97, 88, 96] },
+          { text: "拥有随时推翻重来、在废墟上开出新花的勇气，不被任何过去定义未来", type: 1, aura: [91, 95, 93] },
+          { text: "把时间种在值得的地方，让财富、能力与口碑像滚雪球一样自然丰盈", type: 2, aura: [93, 96, 94] },
+          { text: "内耗越来越少，睡眠越来越香，把每一天都过成自己真正喜欢的质感", type: 3, aura: [88, 98, 91] }
+        ]
+      },
+      {
+        stage: "时光信笺",
+        title: "如果给 2027 年底的自己写一句开篇寄语，你会写下哪一行字？",
+        options: [
+          { text: "“谢谢你这一年如此勇敢而尽兴，原来被好运眷顾的感觉这么美妙！”", type: 0, aura: [98, 89, 97] },
+          { text: "“谢谢你没有妥协于旧剧本，亲手为自己赢来了这场痛快的破局与新生！”", type: 1, aura: [92, 95, 94] },
+          { text: "“谢谢你耐得住性子默默耕耘，如今满仓的收获，配得上你所有的坚持！”", type: 2, aura: [93, 96, 95] },
+          { text: "“谢谢你学会了温柔地善待自己，在不动声色的日子里活出了最深的从容！”", type: 3, aura: [89, 98, 92] }
+        ]
+      }
+    ];
+
+    // ==================== 4种全员上上签结果库（加长哲理版） ====================
+    const ORACLE_RESULTS = [
+      {
+        tagline: "顺风造浪 · 灵气与奇遇同频",
+        title: "【锦鲤附体·顺势而为的造浪者】",
+        motto: "“风起于青萍之末，而你恰好站在了迎风舒展的位置。”",
+        peakMonth: "2027年 5月 & 8月（灵感与奇遇双高光）",
+        colorName: "旭日香槟金",
+        colorHex: "#f3c873",
+        baseAura: [96, 89, 95],
+        portrait:
+          "2027 年的你，身上自带一种令人羡慕的“轻盈感”与“高显化磁场”。当很多人还在为未雨绸缪而眉头紧锁时，你却仿佛提前接通了宇宙的顺风频道——许多看似偶然的相遇、随手一试的想法、或者临时起意的出发，都会在冥冥之中为你牵出意想不到的好机缘。\n\n你的好运并非来自苦大仇深的硬扛，而是源于你对生活依然保有鲜活的好奇心与敞开度。明年你在人际贵人运、灵感创作以及跨界新鲜体验上尤为亮眼，常常在最放松的状态下，恰好接住迎面而来的礼物。",
+        philosophy:
+          "《庄子》里讲“乘天地之正，而御六气之辩”，真正的顺遂，从来不是强行命令风往哪边吹，而是学会辨认风向、张开自己的帆。许多时候，命运之所以迟迟没有把礼物递到一个人手里，不是因为他不够努力，而是因为他把拳头攥得太紧，连伸手接住的空间都没有。\n\n2027 年赐予你的最大智慧，就是“允许一切自然发生”。不必为尚未到来的明天预支焦虑，你的松弛感本身就是一种极高频率的吸引力——当你欢喜地奔赴生活时，生活也会欢喜地奔赴你。",
+        action:
+          "1. 保持“先去试试看”的轻盈姿态：遇到让你眼睛一亮的新机会、新圈子或短途旅行，别用过度分析扼杀直觉，先迈出第一步，答案会在路上自动展开。\n2. 养成记录“每日小确幸”的习惯：哪怕只是抢到喜欢的票、吃到美味的一餐，多向生活发出“我收到了”的感恩信号，你的锦鲤磁场会越擦越亮。"
+      },
+      {
+        tagline: "破晓重塑 · 掌控人生新坐标",
+        title: "【破局重生·在旧秩序里重塑坐标】",
+        motto: "“凡是过往的裂缝，原是为了让2027的光照进来。”",
+        peakMonth: "2027年 3月 & 9月（转折与跃迁关键期）",
+        colorName: "极光青提绿",
+        colorHex: "#6ee7b7",
+        baseAura: [92, 95, 93],
+        portrait:
+          "2027 年对你而言，是一场酣畅淋漓的“自我主权回归年”。过去那些让你感到憋闷的旧规则、消耗情绪的关系，或者卡在半空的瓶颈，将在明年迎来清晰的松动与重排。你不再满足于在别人画好的格子里小心翼翼地讨好，而是生出了一股清醒而温柔的决断力。\n\n这一年你的好运，体现在“破而后立的爽感”上——当你勇敢告别不合脚的鞋子，真正契合你灵魂高度的新舞台、新身份与新机遇就会迅速补位，让你亲眼见证自己生命能量的升级。",
+        philosophy:
+          "尼采曾说：“每一个不曾起舞的日子，都是对生命的辜负。”而起舞的前提，往往是先脱下沉重的铠甲。自然界里，蛇若不经历蜕皮的阵痛，便无法迎来更宽广的生长；树木若不在深秋舍弃繁叶，便无法在来年春天抽发出更强壮的新枝。\n\n2027 年想要告诉你的生命哲理是：失去从来不是惩罚，而是宇宙在帮你腾出位置。那些离开你的人与事，只是完成了他们阶段的使命；而你亲手为自己重建的新坐标，将带你站上前所未有的开阔高地。",
+        action:
+          "1. 在开春前后做一次彻底的“能量断舍离”：清理掉长期闲置的物品、退出无效消耗的社交群、停止自我怀疑的内耗循环，让身心保持通透轻盈。\n2. 面对职业转换、技能进阶或重要关系抉择时，请把“我是否真正舒展”放在第一位，大胆改写属于你的 2027 新剧本。"
+      },
+      {
+        tagline: "厚积薄发 · 时间玫瑰的馈赠",
+        title: "【丰盈聚财·自带磁场的长期主义者】",
+        motto: "“你种下的每一颗耐心的种子，2027都会连本带利还给你。”",
+        peakMonth: "2027年 6月 & 11月（收获与丰盈峰值期）",
+        colorName: "暖阳琥珀金",
+        colorHex: "#fbbf24",
+        baseAura: [93, 96, 94],
+        portrait:
+          "2027 年的你，迎来了令人踏实又惊喜的“价值兑现期”。过去一段时间里，你或许曾有过默默耕耘却暂时无人鼓掌的时刻，但那些你认真打磨的专业能力、积攒的好口碑以及克制而清醒的财务习惯，都将在明年汇聚成一股强劲的“丰盈磁场”。\n\n这一年你的好运格外实在：不仅正财稳步抬升、副业或额外收益渠道悄然打开，更容易吸引到同样务实、靠谱的高能量伙伴。你无需刻意追逐风口，因为你稳健而笃定的本身，就已经成为了别人眼中的避风港与风向标。",
+        philosophy:
+          "世间最迷人的法则之一，叫做“时间的复利”。浮躁的时代里，人人都想今天种下种子、明天就摘到果实，却忘了竹子在破土而出前的四年里，仅仅长高了三厘米——而在第五年，它以每天三十厘米的速度疯狂生长。那四年并不是停滞，而是在地下扎下了数百平米的根系。\n\n2027 年你所领到的上上签，正是对你过往所有真诚与耐心的最高奖赏。真正的丰盛，从来不是侥幸得来的横财，而是当你的认知、定力与行动对齐时，财富与尊重如水到渠成般自然流向你。",
+        action:
+          "1. 聚焦 1～2 件最能沉淀长期价值的核心大事（如代表作打磨、副业闭环或健康管理），拒绝碎片化分散精力，让复利效应在 2027 集中爆发。\n2. 学会大方展示自己的成果与专业度，该争取的回报坦然开口，你的实力完全配得上更丰厚的回馈。"
+      },
+      {
+        tagline: "内在定海 · 低耗能的生命质感",
+        title: "【静水深流·低耗能的生命复利者】",
+        motto: "“外面千帆竞渡，而你早已在自己的精神花园里四季如春。”",
+        peakMonth: "2027年 4月 & 10月（身心滋养与福气沉淀期）",
+        colorName: "月光松石青",
+        colorHex: "#5eead4",
+        baseAura: [89, 98, 92],
+        portrait:
+          "2027 年的你，解锁了当代年轻人最稀缺的顶级好运——“极低的内耗”与“深沉的安稳”。当周遭的世界依然喧嚣匆忙时，你却在不知不觉中修出了强大的情绪免疫系统。琐事不再轻易激怒你，别人的节奏不再轻易绑架你，你的睡眠、气色与生活质感都在肉眼可见地变好。\n\n这种“静水深流”的福气看似不动声色，实则后劲无穷：因为你把原本浪费在焦虑和猜忌上的能量全部收归己用，2027 年你在健康、亲密关系滋养以及个人心智成熟度上都将收获满满，活出一种从容不迫的高级感。",
+        philosophy:
+          "老子在《道德经》中写道：“致虚极，守静笃。万物并作，吾以观复。”大海之所以能成为百谷之王，不是因为它比溪流更喧哗，而是因为它处于低处、深沉且包容。人这一生最高级的福气，往往不是外界给了你多少喧嚣的掌声，而是你终于学会了不再与自己为敌。\n\n2027 年赠予你的生命哲学是：照顾好自己的感受，就是最高级的风水。当你不再向外索求安全感，而是把自己的内心打理成一座丰沛的花园时，蝴蝶、清风与温柔的人，都会循着花香静静来到你身边。",
+        action:
+          "1. 每天为自己保留 30 分钟“完全不看消息的留白时间”——散步、阅读、泡澡或纯粹发呆，保护好你珍贵的低耗能能量场。\n2. 把精力投资在滋养身心的日常细节上：好好吃每一顿饭、睡个好觉、多陪伴真正让你感到轻松的家人与挚友，福气自会绵延不绝。"
+      }
+    ];
+
+    // ==================== 状态控制 ====================
+    let stepIndex = 0;
+    let userSelections = new Array(SCENARIOS.length).fill(null);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initAuroraParticles();
+    });
+
+    function showToastMsg(text) {
+      const el = document.getElementById("toast-notice");
+      el.textContent = text;
+      el.classList.remove("hidden");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        el.classList.add("hidden");
+      }, 2400);
+    }
+
+    function beginJourney() {
+      stepIndex = 0;
+      userSelections = new Array(SCENARIOS.length).fill(null);
+      document.getElementById("screen-cover").classList.add("hidden");
+      document.getElementById("screen-result").classList.add("hidden");
+      document.getElementById("screen-questions").classList.remove("hidden");
+      renderScenario();
+    }
+
+    function renderScenario() {
+      const item = SCENARIOS[stepIndex];
+      document.getElementById("stage-label").textContent = item.stage;
+      document.getElementById("prompt-title").textContent = item.title;
+
+      // 仅通过进度条视觉反馈进度，不暴露具体总数
+      const pct = Math.round(((stepIndex + 1) / SCENARIOS.length) * 100);
+      document.getElementById("journey-bar").style.width = `${pct}%`;
+
+      const prevBtn = document.getElementById("btn-prev-step");
+      if (stepIndex > 0) {
+        prevBtn.classList.remove("opacity-40", "pointer-events-none");
+      } else {
+        prevBtn.classList.add("opacity-40", "pointer-events-none");
+      }
+
+      const wrap = document.getElementById("prompt-options");
+      wrap.innerHTML = "";
+      const glyphs = ["Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ"];
+
+      item.options.forEach((opt, idx) => {
+        const isChosen = userSelections[stepIndex] === idx;
+        const btn = document.createElement("button");
+        btn.className = `choice-item w-full text-left p-4 rounded-2xl flex items-start gap-3.5 cursor-pointer ${isChosen ? "selected" : ""}`;
+        btn.onclick = () => pickScenarioOption(idx);
+
+        btn.innerHTML = `
+          <span class="font-serif-sc w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${isChosen ? "bg-[#f3c873] text-[#081518]" : "bg-white/10 text-[#a7f3d0] border border-emerald-300/25"}">
+            ${glyphs[idx]}
+          </span>
+          <span class="text-xs sm:text-sm text-slate-100 leading-relaxed">${opt.text}</span>
+        `;
+        wrap.appendChild(btn);
+      });
+
+      const motionBox = document.getElementById("card-motion");
+      motionBox.classList.remove("animate-rise");
+      void motionBox.offsetWidth;
+      motionBox.classList.add("animate-rise");
+    }
+
+    function pickScenarioOption(idx) {
+      userSelections[stepIndex] = idx;
+      renderScenario();
+
+      setTimeout(() => {
+        if (stepIndex < SCENARIOS.length - 1) {
+          stepIndex++;
+          renderScenario();
+        } else {
+          concludeOracle();
+        }
+      }, 240);
+    }
+
+    function goBackStep() {
+      if (stepIndex > 0) {
+        stepIndex--;
+        renderScenario();
+      }
+    }
+
+    function concludeOracle() {
+      document.getElementById("screen-questions").classList.add("hidden");
+      document.getElementById("screen-loading").classList.remove("hidden");
+      document.getElementById("loading-status").textContent = "正在感应你的年度生命节奏与高光坐标...";
+
+      const statusTimer = setTimeout(() => {
+        document.getElementById("loading-status").textContent = "正在封存你的 2027 上上签启示长信...";
+      }, 700);
+
+      // 统计 4 种正向好运维度的倾向票数
+      const typeCounts = [0, 0, 0, 0];
+      const auraSums = [0, 0, 0];
+
+      userSelections.forEach((ansIdx, qIdx) => {
+        const chosen = SCENARIOS[qIdx].options[ansIdx ?? 0];
+        typeCounts[chosen.type] += 1;
+        for (let i = 0; i < 3; i++) {
+          auraSums[i] += chosen.aura[i];
+        }
+      });
+
+      // 选出最契合的一种上上签（平票时取最后一次直觉倾向，保证全员正向高能）
+      let bestType = 0;
+      let maxCount = -1;
+      typeCounts.forEach((count, tIdx) => {
+        if (count >= maxCount) {
+          maxCount = count;
+          bestType = tIdx;
+        }
+      });
+
+      const oracle = ORACLE_RESULTS[bestType];
+      const finalAuras = oracle.baseAura.map((base, i) => {
+        const avg = Math.round(auraSums[i] / SCENARIOS.length);
+        // 保证所有气场分值均在 86% - 99% 的高能上上签区间
+        return Math.min(99, Math.max(86, Math.round(base * 0.55 + avg * 0.45)));
+      });
+
+      setTimeout(() => {
+        clearTimeout(statusTimer);
+        document.getElementById("screen-loading").classList.add("hidden");
+        document.getElementById("screen-result").classList.remove("hidden");
+
+        document.getElementById("oracle-id").textContent = String(202700 + Math.floor(Math.random() * 899) + 100);
+        document.getElementById("res-tagline").textContent = oracle.tagline;
+        document.getElementById("res-title").textContent = oracle.title;
+        document.getElementById("res-motto").textContent = oracle.motto;
+        document.getElementById("res-peak-month").textContent = oracle.peakMonth;
+        document.getElementById("res-color-label").textContent = oracle.colorName;
+        document.getElementById("res-color-dot").style.backgroundColor = oracle.colorHex;
+        document.getElementById("res-portrait").textContent = oracle.portrait;
+        document.getElementById("res-philosophy").textContent = oracle.philosophy;
+        document.getElementById("res-action").textContent = oracle.action;
+
+        setTimeout(() => {
+          finalAuras.forEach((val, idx) => {
+            document.getElementById(`aura-val-${idx + 1}`).textContent = `${val}%`;
+            document.getElementById(`aura-bar-${idx + 1}`).style.width = `${val}%`;
+          });
+        }, 120);
+      }, 1450);
+    }
+
+    function restartJourney() {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`aura-bar-${i}`).style.width = "0%";
+      }
+      beginJourney();
+    }
+
+    // ==================== 一键生成高清长海报 ====================
+    function generateLongPoster() {
+      const btn = document.getElementById("btn-make-poster");
+      const oldText = btn.textContent;
+      btn.textContent = "正在绘制高清长海报...";
+      btn.disabled = true;
+
+      const captureTarget = document.getElementById("long-poster-capture");
+      html2canvas(captureTarget, {
+        backgroundColor: "#09181d",
+        scale: 2,
+        useCORS: true,
+        logging: false
+      }).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        document.getElementById("poster-image-box").innerHTML =
+          `<img src="${imgData}" alt="2027个人开运图鉴长海报" class="w-full h-auto block" />`;
+        document.getElementById("poster-dialog").classList.remove("hidden");
+        btn.textContent = oldText;
+        btn.disabled = false;
+      }).catch(() => {
+        showToastMsg("生成失败，可直接使用手机截屏保存长图哦");
+        btn.textContent = oldText;
+        btn.disabled = false;
+      });
+    }
+
+    function closePosterDialog() {
+      document.getElementById("poster-dialog").classList.add("hidden");
+    }
+
+    // ==================== 背景旭日鎏金与极光青提微尘 ====================
+    function initAuroraParticles() {
+      const canvas = document.getElementById("aurora-canvas");
+      const ctx = canvas.getContext("2d");
+      let w = (canvas.width = window.innerWidth);
+      let h = (canvas.height = window.innerHeight);
+
+      window.addEventListener("resize", () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const motes = Array.from({ length: 26 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2.1 + 0.8,
+        vy: Math.random() * 0.35 + 0.12,
+        vx: (Math.random() - 0.5) * 0.22,
+        alpha: Math.random() * 0.45 + 0.15,
+        isGold: Math.random() > 0.45
+      }));
+
+      function loop() {
+        ctx.clearRect(0, 0, w, h);
+        motes.forEach(m => {
+          m.y -= m.vy;
+          m.x += m.vx;
+          if (m.y < -8) {
+            m.y = h + 8;
+            m.x = Math.random() * w;
+          }
+          ctx.save();
+          ctx.globalAlpha = m.alpha;
+          ctx.fillStyle = m.isGold ? "#f3c873" : "#6ee7b7";
+          ctx.beginPath();
+          ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        });
+        requestAnimationFrame(loop);
+      }
+      loop();
+    }
+  </script>
+</body>
+</html>
